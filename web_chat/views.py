@@ -1,7 +1,4 @@
-from datetime import date, datetime
 from django.http.response import Http404
-from rest_framework.generics import CreateAPIView
-from rest_framework import permissions, response, authentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, permissions
@@ -58,9 +55,11 @@ class MessageDetail(APIView):
 
     def delete(self, request, pk, format=None):
         message = self.get_object(pk)
-        if (request.user == message.user):
+        if (request.user == message.user or request.user.is_staff or request.user.is_superuser):
             message.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 class RoomMessagesList(APIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -96,12 +95,23 @@ class ChatRoomDetail(APIView):
 
     def delete(self, request, pk, format=None):
         ChatRoom = self.get_object(pk)
-        if (request.user == ChatRoom.user):
+        if (request.user == ChatRoom.user or request.user.is_staff or request.user.is_superuser):
             ChatRoom.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 class GetUserData(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     def get(self, request):
         username = request.user.username
-        return Response({"username":username})
+        user = request.user
+        perms = ""
+        if user.is_superuser:
+            perms = "staff"
+        elif user.is_staff:
+            perms = "super"
+        else:
+            perms = "user"
+            
+        return Response({"username":username, "permissions": perms})
