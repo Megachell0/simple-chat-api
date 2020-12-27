@@ -25,13 +25,9 @@ SECRET_KEY = 'q*r1+ge3l*ciwxd&@e_eu=^s@_+wvdkbzc=2_-ekihiid6ko#k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-'''
-ALLOWED_HOSTS = ['127.0.0.1']
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = ( 
-  'http://127.0.0.1:5500',
-)
-'''
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -177,7 +173,10 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-
-#ALLOWED_HOSTS=['*']
-#CORS_ORIGIN_ALLOW_ALL = True
+#ALLOWED_HOSTS = ['127.0.0.1']
+#CORS_ORIGIN_WHITELIST = ( 
+#  'http://127.0.0.1:5500',
+#)
+ALLOWED_HOSTS=['*']
+CORS_ORIGIN_ALLOW_ALL = True
 django_heroku.settings(locals())
