@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'debug_toolbar',
     'web_chat',
-    #'corsheaders', # DELETE THIS
+    'corsheaders', # DELETE THIS
     'rest_framework_simplejwt.token_blacklist'
 ]
 
@@ -54,8 +54,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    #'corsheaders.middleware.CorsMiddleware', # DELETE THIS
-    #'django.middleware.common.CommonMiddleware', # DELETE THIS
+    'corsheaders.middleware.CorsMiddleware', # DELETE THIS
+    'django.middleware.common.CommonMiddleware', # DELETE THIS
 ]
 
 ROOT_URLCONF = 'chat.urls'
@@ -143,9 +143,6 @@ REST_FRAMEWORK = {
 }
 
 
-
-
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
@@ -173,7 +170,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-#ALLOWED_HOSTS = ['127.0.0.1']
 #CORS_ORIGIN_WHITELIST = ( 
 #  'http://127.0.0.1:5500',
 #)
