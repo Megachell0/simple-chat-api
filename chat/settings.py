@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import django_heroku
 from pathlib import Path
 from datetime import timedelta
 
@@ -25,12 +25,13 @@ SECRET_KEY = 'q*r1+ge3l*ciwxd&@e_eu=^s@_+wvdkbzc=2_-ekihiid6ko#k'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
+'''
 ALLOWED_HOSTS = ['127.0.0.1']
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ( 
   'http://127.0.0.1:5500',
 )
+'''
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'debug_toolbar',
     'web_chat',
-    'corsheaders', # DELETE THIS
+    #'corsheaders', # DELETE THIS
     'rest_framework_simplejwt.token_blacklist'
 ]
 
@@ -57,8 +58,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'corsheaders.middleware.CorsMiddleware', # DELETE THIS
-    'django.middleware.common.CommonMiddleware', # DELETE THIS
+    #'corsheaders.middleware.CorsMiddleware', # DELETE THIS
+    #'django.middleware.common.CommonMiddleware', # DELETE THIS
 ]
 
 ROOT_URLCONF = 'chat.urls'
@@ -148,6 +149,7 @@ REST_FRAMEWORK = {
 
 
 
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
@@ -176,5 +178,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
-ALLOWED_HOSTS=['*']
-CORS_ORIGIN_ALLOW_ALL = True
+#ALLOWED_HOSTS=['*']
+#CORS_ORIGIN_ALLOW_ALL = True
+django_heroku.settings(locals())
