@@ -8,7 +8,7 @@ class ChatUser(AbstractUser):
 
 
 class Message(models.Model):
-    content = models.TextField(blank=False, verbose_name='Message_text')
+    content = models.TextField(blank=False, verbose_name='Message_text', max_length=1500)
     created_at = models.DateTimeField(auto_now=True, verbose_name='Created:')
     user = models.ForeignKey(ChatUser, on_delete=models.PROTECT, blank=False, verbose_name="User", default=1)
     chat_room = models.ForeignKey("ChatRoom", on_delete=models.CASCADE, blank=False, verbose_name=("Chat_room"))
